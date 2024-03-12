@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "app-api-484e6": {
+      "hosting": {
+        "app2": [
+          "app-api-484e6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "app-api-484e6"
+  }
+}
