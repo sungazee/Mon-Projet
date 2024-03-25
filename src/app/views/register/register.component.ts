@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 
 import {merge} from 'rxjs';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class RegisterComponent {
 
   errorMessage = '';
   hide = true;
-
+  authService = inject(AuthService)
 
   constructor() {
     merge(this.email.statusChanges, this.email.valueChanges)
@@ -38,6 +39,11 @@ export class RegisterComponent {
     } else {
       this.errorMessage = '';
     }
+  }
+
+  onSubmit(): void{
+      console.log("Register is working")
+    
   }
 }
 
