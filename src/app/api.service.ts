@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { University } from './University';
 
 @Injectable({
@@ -20,6 +20,20 @@ export class APIService{
   
   getUniversitybynameAndCountry(name : string , Country: string) : Observable<University>{
     return this.http.get<University>(this.baseurl +"/search?name="+name+"&country="+Country);
+  }
+
+  getUniversityByNameAndOfsset(name: string, offset: number): Observable<University[]> {
+    return this.http.get<University[]>(`${this.baseurl}/search?name=${name}`).pipe(map((universities: University[]) => {
+        return universities.slice(offset);
+      })
+    );
+  }
+
+  getUniversityByNameAndLimit(name: string, limit: number, offset: number): Observable<University[]> {
+    return this.http.get<University[]>(`${this.baseurl}/search?name=${name}`).pipe( map((universities: University[]) => {
+        return universities.slice(offset, offset + limit);
+      })
+    );
   }
 }
 
